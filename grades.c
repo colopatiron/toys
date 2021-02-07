@@ -6,6 +6,7 @@
 
 float median(float* fNumbers, int n);
 float mean(float* fNumbers, int n);
+bool isEven(int n);
 
 int main() {
   int nNumberOfGrades;
@@ -22,7 +23,8 @@ int main() {
   printf("The average of the grades is: %.2f\n",
          mean(fGrades, nNumberOfGrades));
 
-  median(fGrades, nNumberOfGrades);
+  printf("The median of the grades is %.2f\n",
+         median(fGrades, nNumberOfGrades));
   return 0;
 }
 
@@ -33,14 +35,14 @@ float median(float* fNumbers, int n) {
   } else {
     float num1 = fNumbers[n / 2];
     float num2 = fNumbers[n / 2 - 1];
-    fMedian = (num + num2) / 2;
+    fMedian = (num1 + num2) / 2;
   }
 
   return fMedian;
 }
 
 float mean(float* fNumbers, int n) {
-  flaot fSum = 0;
+  float fSum = 0;
   for (int i = 0; i < n; i++) {
     fSum += fNumbers[i];
   }
