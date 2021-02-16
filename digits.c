@@ -7,35 +7,84 @@ typedef enum {
   THOUSANDS = 1000
 } PlaceValue;
 
-// enum PlaceValue placeValue;
-PlaceValue placeValue;
+typedef enum {
+  THOUSANDS_CHOICE = 1,
+  ONES_CHOICE,
+  TENS_CHOICE,
+  HUNDREDS_CHOICE,
+} PlaceValueChoice;
+
+void breakDownDigits(int number,
+                     int* thousands,
+                     int* hundreds,
+                     int* tens,
+                     int* ones);
+
+int getNumber(void);
+int buildNumber(int thousands, int hundreds, int tens, int ones);
 
 int main() {
-  int number;
-  scanf(" %d", &number);
+  int number, thousands, hundreds, tens, ones;
+  PlaceValueChoice placeValueChoice;
 
-  int thousands = number / 1000;
-  printf("Thousands place: %d\n", thousands);
+  number = getNumber(number);
+  breakDownDigits(number, thousands, hundreds, tens, ones);
+  placeValueChoice = getPlaceValueChoice();
 
-  number %= 1000;
-  printf("%d\n", number);
-
-  int hundreds = number / 100;
-  printf("Hundreds place: %d\n", hundreds);
-
-  number %= 100;
-  printf("%d\n", number);
-
-  int tens = number / 10;
-  printf("Tens place: %d\n", tens);
-
-  number %= 10;
-  printf("Ones place: %d\n", number);
-
-  tens = 9;
-  thousands = 0;
+  switch (placeValueChoice) {
+    case THOUSANDS_CHOICE:
+      break;
+    case HUNDREDS_CHOICE:
+      break;
+    case TENS_CHOICE:
+      break;
+    case ONES_CHOICE:
+      break;
+    default:
+      break;
+  }
 
   printf("The new number is: %d\n",
-         thousands * 1000 + hundreds * 100 + tens * 10 + number);
+         buildNumber(thoudands, hundreds, tens, ones));
   return 0;
+}
+
+void breakDownDigits(int number,
+                     int* thousands,
+                     int* hundreds,
+                     int* tens,
+                     int* ones) {
+  *thousands = number / THOUSANDS;
+  number %= THOUSANDS;
+
+  *hundreds = number / HUNDREDS;
+  number %= HUNDREDS;
+
+  *tens = number / TENS;
+  *ones = number % TENS;
+}
+
+int getNumber(void) {
+  int number;
+
+  printf("Enter a number (up to 9999): ");
+  scanf(" %d", &number);
+  return number;
+}
+
+int buildNumber(int thousands, int hundreds, int tens, int ones) {
+  return thousands * 1000 + hundreds * 100 + tens * 10 + ones;
+}
+
+PlaceValueChoice getPlaceValueChoice(void) {
+  PlaceValueChoice placeValueChoice;
+  printf(
+      "What digit do you want to change?\n\n"
+      "[1] Thousands\n"
+      "[2] Hundreds\n"
+      "[3] Tens\n"
+      "[4] Ones\n\n"
+      "-> ");
+  scanf("%d", &placeValueChoice);
+  return placeValueChoice;
 }
